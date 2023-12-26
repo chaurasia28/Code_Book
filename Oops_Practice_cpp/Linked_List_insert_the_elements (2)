@@ -1,0 +1,87 @@
+// Online C++ compiler to run C++ program online
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class Node
+{
+    public:
+          int data;
+          Node* next;
+          //Constructor
+          Node(int data)
+          {
+              this->data=data;
+              this->next=NULL;
+          }
+};
+void insertathead(Node* &head,int d)
+{
+    Node* temp=new Node(d);
+    temp->next=head;
+    head=temp;
+}
+void insertattail(Node* &tail,int d)
+{
+    Node* temp=new Node(d);
+    tail->next=temp;
+    tail=temp;
+}
+void print(Node* &head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void insertatposition(Node* &head,Node* &tail,int position,int d)
+{
+    //Insert element at head
+    if(position==1)
+    {
+        insertathead(head,d);
+        return;
+    }
+    //Insert element at mid
+   Node* temp=head;
+   //Insert element at tail(temp->next==Null shows last element)
+    if(temp->next==NULL)
+    {
+        insertattail(tail,d);
+        return;
+    }
+   int cnt=1;
+   while(cnt<position-1)
+   {
+       temp=temp->next;
+       cnt++;
+   }
+   Node *Nodetoinsert=new Node(d);
+   Nodetoinsert->next=temp->next;
+   temp->next=Nodetoinsert;
+}
+int main()
+{
+    Node* node1=new Node(12);
+    Node* head=NULL;
+    Node* tail=NULL;
+    head=node1;
+    tail=node1;
+    // insertathead(head,10);
+    // insertathead(head,8);
+    // print(head);
+    cout<<endl;
+    insertattail(tail,10);
+    insertattail(tail,8);
+    insertatposition(head,tail,4,6);
+    print(head);
+}
