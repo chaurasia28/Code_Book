@@ -1,0 +1,126 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
+  Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class Node
+{
+    public:
+           int data;
+           Node* next;
+           Node(int data)
+           {
+               this->data=data;
+               this->next=NULL;
+           }
+           ~Node()
+           {
+               int val=this->data;
+               if(this->next!=NULL)
+               {
+                   delete next;
+                   this->next=NULL;
+               }
+               cout<<"Element deleted has a value:"<<val<<endl;
+           }
+};
+//Insert at head
+void insertathead(Node* &head,int d)
+{
+    Node* temp=new Node(d);
+    temp->next=head;
+    head=temp;
+}
+//Insert at tail
+void insertattail(Node* &tail,int d)
+{
+    Node* temp=new Node(d);
+    tail->next=temp;
+    tail=temp;
+}
+//Insert at middle
+void insertatmiddle(Node* &head,Node* &tail,int position,int d)
+{
+    if(position==1)
+    {
+        insertathead(head,d);
+        return;
+    }
+    Node* temp=head;
+    if(temp->next==NULL)
+    {
+        insertattail(tail,d);
+        return;
+    }
+    int cnt=1;
+    while(cnt<position-1)
+    {
+        temp=temp->next;
+        cnt++;
+    }
+    Node* Nodetoinsert=new Node(d);
+    Nodetoinsert->next=temp->next;
+    temp->next=Nodetoinsert;
+}
+void print(Node* &head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+void deletenode(Node* &head,int position)
+{
+    
+    //Delete starting/first element
+    if(position==1)
+    {
+       Node* temp=head;
+       head=head->next;
+       temp->next=NULL;
+       delete temp;
+    }
+    //Delete middle or last element
+    else
+    {
+     Node* curr=head;
+     Node* prev=NULL;
+     int cnt=1;
+     while(cnt<position)
+     {
+        prev=curr;
+        curr=curr->next;
+         cnt++;
+     }
+     prev->next=curr->next;
+     curr->next=NULL;
+     delete curr;
+     
+    }
+}
+int main()
+{
+   Node* node1=new Node(2);
+   Node* head=NULL;
+   Node* tail=NULL;
+   head=node1;
+   tail=node1;
+//   insertathead(head,4);
+//   insertathead(head,6);
+//   print(head);
+   insertattail(tail,4);
+   insertattail(tail,6);
+   insertatmiddle(head,tail,4,8);
+   print(head);
+   cout<<endl;
+   deletenode(head,3);
+   print(head);
+}
