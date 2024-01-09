@@ -1,0 +1,107 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class Node{
+    public:
+           int data;
+           Node* next;
+           //Constructor
+           Node(int d)
+           {
+               this->data=d;
+               this->next=NULL;
+           }
+           //Destructor
+           ~Node()
+           {
+               int val=this->data;
+               if(this->next!=NULL)
+               {
+                   delete next;
+                   next=NULL;
+               }
+               cout<<"Element delete :"<<val<<endl;
+           }
+};
+void insertNode(Node* &tail,int element,int d)
+{
+    if(tail==NULL)
+    {
+        //Linked List is empty
+        Node* temp=new Node(d);
+        tail=temp;
+        temp->next=temp;
+    }
+    else
+    {
+        //Linked List is not empty and assuming that we find the element
+        Node* curr=tail;
+        while(curr->data!=element)
+        {
+            curr=curr->next;
+        }
+        Node* temp=new Node(d);
+        temp->next=curr->next;
+        curr->next=temp;
+    }
+}
+void print(Node* &tail)
+{
+    Node* temp=tail;
+    //Empty List
+    if(tail==NULL)
+    {
+        cout<<"List is Empty!";
+        return;
+    }
+    do{
+        cout<<tail->data<<" ";
+        tail=tail->next;
+    }while(temp!=tail);
+    cout<<endl;
+}
+void deleteNode(Node* &tail,int value)
+{
+    //Linked List Empty
+    if(tail==NULL)
+    {
+        cout<<"Linked List is Empty,Deletion not possible!";
+    }
+    else
+    {
+        //Linked List non-empty
+        //Assuming Value which need to delete is present
+        Node* prev=tail;//No matter tail point to prev or curr as its CLL
+        Node* curr=prev->next;
+        while(curr->data!=value)
+        {
+            prev=curr;
+            curr=curr->next;
+        }
+        prev->next=curr->next;
+        //Single linked list
+        if(curr==prev)
+        {
+            tail=NULL;//so that it become empty list
+        }
+        //>=2 Node
+        else if(curr==tail)
+        {
+            tail=prev;
+        }
+        curr->next=NULL;
+        delete curr;
+    }
+}
+int main() {
+    Node* tail=NULL;
+    insertNode(tail,1,1);
+    insertNode(tail,1,2);
+    insertNode(tail,2,3);
+    insertNode(tail,3,4);
+    insertNode(tail,4,5);
+    print(tail);
+    deleteNode(tail,1);
+    print(tail);
+    return 0;
+}
