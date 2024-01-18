@@ -1,0 +1,105 @@
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+           int data;
+           Node* next;
+           Node(int d)
+           {
+               this->data=d;
+               this->next=NULL;
+           }
+};
+void insertathead(Node *head,int d)
+{
+    Node* temp=new Node(d);
+    temp->next=head;
+    head=temp;
+}
+void insertattail(Node* tail,int d)
+{
+    Node * temp=new Node(d);
+    tail->next=temp;
+    tail=temp;
+}
+void insertatposition(Node* head,Node* tail,int position,int d)
+{
+    if(position==1)
+    {
+        insertathead(head,d);
+        return;
+    }
+    if(tail->next==NULL)
+    {
+        insertattail(tail,d);
+        return;
+    }
+    Node *temp=head;
+    int cnt=1;
+    while(cnt!=position-1)
+    {
+        cnt++;
+        temp=temp->next;
+    }
+    Node* nodetoinsert=new Node(d);
+    nodetoinsert->next=temp->next;
+    temp->next=nodetoinsert;
+}
+void print(Node* head)
+{
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+Node* floydscycle(Node* &head)
+{
+    if(head==NULL)
+    {
+        return NULL;//Empty linked list donot have loop
+    }
+    Node *slow=head;
+    Node *fast=head;
+    while(slow!=NULL && fast!=NULL)
+    {
+        fast=fast->next;
+        if(fast!=NULL)
+        {
+            fast=fast->next;
+        }
+        slow=slow->next;
+        if(slow==fast)
+        {
+            return slow;
+        }
+    }
+    return NULL;
+    
+}
+int main()
+{
+   Node* head=NULL;
+   Node* tail=NULL;
+   Node* node1=new Node(1);
+   head=node1;
+   tail=node1;
+   insertatposition(head,tail,2,2);
+   insertatposition(head,tail,3,3);
+   insertatposition(head,tail,4,4);
+   insertatposition(head,tail,5,5);
+   tail->next=head;
+//   cout<<head->data<<endl;
+//   cout<<tail->data<<endl;
+//   print(head);
+   if(floydscycle(head)!=NULL)
+   {
+       cout<<"Cycle is present at node"<<floydscycle(head)->data<<endl;
+   }
+   else
+   {
+       cout<<"Cycle is not present"<<endl;
+   }
+  
+}

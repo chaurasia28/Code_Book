@@ -1,0 +1,117 @@
+#include<iostream>
+using namespace std;
+class Node{
+    public:
+           int data;
+           Node* next;
+           Node(int d)
+           {
+               this->data=d;
+               this->next=NULL;
+           }
+};
+void insertathead(Node* &head,int d)
+{
+    Node* temp=new Node(d);
+    temp->next=head;
+    head=temp;
+}
+void insertattail(Node* &tail,int d)
+{
+    Node* temp=new Node(d);
+    tail->next=temp;
+    tail=temp;
+}
+void insertatmiddle(Node* &head,Node* &tail,int position,int d)
+{
+    if(position==1)
+    {
+        insertathead(head,d);
+        return;
+    }
+    Node* temp=head;
+    if(temp==NULL)
+    {
+        insertattail(tail,d);
+        return;
+    }
+    int cnt=1;
+    while(cnt<position-1)
+    {
+        temp=temp->next;
+        cnt++;
+    }
+    Node* nodetoinsert=new Node(d);
+    nodetoinsert->next=temp->next;
+    temp->next=nodetoinsert;
+}
+void print(Node* head)
+{
+    if(head==NULL)
+    {
+        cout<<"List is empty";
+    }
+    Node* prev=NULL;
+    Node* curr=head;
+    while(curr!=NULL)
+    {
+        cout<<curr->data<<" ";
+        prev=curr;
+        curr=curr->next;
+    }
+}
+Node* floydscycle(Node* head)
+{
+    if(head==NULL)
+    {
+        return NULL;//Empty linked list donot hanve loop
+    }
+    Node* slow=head;
+    Node* fast=head;
+    while(slow!=NULL && fast!=NULL)
+    {
+        fast=fast->next;
+        if(fast!=NULL)
+        {
+            fast=fast->next;
+        }
+        slow=slow->next;
+        if(fast==slow)
+        {
+            cout<<"Intersection point :"<<slow->data<<endl;
+            return slow;
+        }
+    }
+    return NULL;
+}
+Node* StartingNodeinLoop(Node* head)
+{
+    if(head==NULL){
+        return NULL;
+    }
+    Node* intersection=floydscycle(head);
+    Node* slow=head;
+    while(intersection!=slow)
+    {
+        slow=slow->next;
+        intersection=intersection->next;
+    }
+    return slow;
+}
+int main()
+{
+    Node* head=NULL;
+    Node* tail=NULL;
+    Node* node1=new Node(1);
+    head=node1;
+    tail=node1;
+    insertatmiddle(head,tail,2,2);
+    insertatmiddle(head,tail,3,3);
+    insertatmiddle(head,tail,4,4);
+    insertatmiddle(head,tail,5,5);
+    insertatmiddle(head,tail,6,6);
+    // print(head);
+    tail->next=head;
+    Node* ans=StartingNodeinLoop(head);
+    cout<<"Starting Node:"<<ans->data<<endl;
+}
