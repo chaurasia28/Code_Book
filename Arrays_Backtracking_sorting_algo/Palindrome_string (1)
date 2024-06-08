@@ -1,0 +1,49 @@
+#include<iostream>
+using namespace std;
+char to_lower(char ch)
+{
+    if((ch>='a' && ch<='z')||(x>='0' && x<='9'))
+    {
+        return ch;
+    }
+    else
+    {
+        return ch-'A'+'a';
+    }
+}
+bool palindrome(string &s)
+{
+    string temp="";
+    for(auto x:s)
+    {
+        if((x>='a' && x<='z')||(x>='A' && x<='Z')||(x>='0' && x<='9'))
+        {
+            temp=temp+to_lower(x);
+        }
+    }
+    int st=0;
+    int e=temp.length()-1;
+    while(st<=e)
+    {
+        if(temp[st]!=temp[e])
+        {
+            return false;
+        }
+        st++;
+        e--;
+    }
+    return true;
+}
+int main()
+{
+    string s;
+    cin>>s;
+    if(palindrome(s))
+    {
+        cout<<"True";
+    }
+    else
+    {
+        cout<<"False";
+    }
+}

@@ -1,0 +1,44 @@
+#include<iostream>
+#include<vector>
+#include<string.h>
+using namespace std;
+int compression(vector<char> &chars)
+{
+   string out="";
+   for(int i=0;i<chars.size();i++) 
+   {
+       int cnt=1;
+       while(i+1<chars.size()&&chars[i]==chars[i+1])
+       {
+           i++;
+           cnt++;
+       }
+       out=out+chars[i];
+       if(cnt==1)
+       {
+           continue;
+       }
+       out=out+to_string(cnt);
+   }
+   chars.clear();
+   for(int i=0;i<out.length();i++)
+   {
+       chars[i]=out[i];
+   }
+   return out.length();
+}
+int main()
+{
+     vector<char>chars;
+     char temp;
+     while(temp!='\n')
+     {
+         temp=cin.get();
+         chars.push_back(temp);
+     }
+    int out=compression(chars);
+    for(int i=0;i<out;i++)
+   {
+       cout<<chars[i]<<"";
+   }
+}

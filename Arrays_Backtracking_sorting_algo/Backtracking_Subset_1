@@ -1,0 +1,39 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+vector<string>ans;
+bool compare(string a,string b)
+{
+    if(a.length()==b.length())
+    {
+        return a<b;
+    }
+    return a.length()<b.length();
+}
+void solve(string &str,int i,string output)
+{
+    if(i>=str.length())
+    {
+        ans.push_back(output);
+        return;
+    }
+    //Exclude
+    solve(str,i+1,output);
+    //Include
+    char ele=str[i];
+    output.push_back(ele);
+    solve(str,i+1,output);
+}
+int main()
+{
+    string str;
+    string output;
+    cin>>str;
+    solve(str,0,output);
+    sort(ans.begin(),ans.end(),compare);
+    for(auto i:ans)
+    {
+        cout<<i<<" ";
+    }
+}

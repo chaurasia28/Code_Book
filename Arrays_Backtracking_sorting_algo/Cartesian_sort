@@ -1,0 +1,32 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+bool compare(pair<int,int>&points1,pair<int,int>&points2)
+{
+    if(points1.first!=points2.first)
+    {
+        return points1.first<points2.first;
+    }
+    else
+    {
+        return points1.second<points2.second;
+    }
+}
+vector<pair<int,int>>sorted(vector<pair<int,int>>&points)
+{
+    vector<pair<int,int>>p=points;
+    sort(p.begin(),p.end(),compare);
+    return p;
+}
+int main()
+{
+  vector<pair<int,int>>points={{3,4},{3,7},{2,4},{3,4}};
+  vector<pair<int,int>>ans=sorted(points);
+  cout<<"{";
+  for(auto it:ans)
+  {
+      cout<<"{"<<it.first<<" "<<it.second<<"}"<<" ";
+  }
+  cout<<"}";
+}

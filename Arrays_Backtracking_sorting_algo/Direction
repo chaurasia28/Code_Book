@@ -1,0 +1,61 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    string s;
+    getline(cin,s);
+    int i=0;
+    int x=0,y=0;
+    while(i!=s.length()){
+    switch(s[i])
+    {
+        case 'N':
+        case 'n':
+                y++;
+                break;
+        case 'S':
+        case 's':
+                y--;
+                break;
+        case 'E':
+        case 'e':
+                x++;
+                break;
+        case 'W':
+        case 'w':
+                x--;
+                break;
+    }
+    i++;
+    }
+    if(x==0 && y==0)
+    {
+        cout<<"No displacement"<<endl;
+    }
+    while(y!=0)
+    {
+        if(y>0)
+        {
+            cout<<"N";
+            y--;
+        }
+        else
+        {
+            cout<<"S";
+            y++;
+        }
+    }
+    while(x!=0)
+    {
+        if(x>0)
+        {
+            cout<<"E";
+            x--;
+        }
+        else
+        {
+            cout<<"W";
+            x++;
+        }
+    }
+}

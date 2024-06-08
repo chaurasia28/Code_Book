@@ -1,0 +1,43 @@
+//Is array sorted or not
+#include<iostream>
+using namespace std;
+int binary_search(int *arr,int s,int e,int target)
+{
+    int mid=s+(e-s)/2;
+   if(s>e)
+   {
+       return false;
+   }
+   if(arr[mid]==target)
+   {
+       return true;
+   }
+   else if(arr[mid]<target)
+   {
+      return  binary_search(arr,mid+1,e,target);
+   }
+   else
+   {
+       return binary_search(arr,s,mid-1,target);
+   }
+}
+int main()
+{
+    int arr[100];
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    int target;
+    cin>>target;
+    if(binary_search(arr,0,n-1,target))
+    {
+        cout<<"True"<<endl;
+    }
+    else
+    {
+        cout<<"False"<<endl;
+    }
+}

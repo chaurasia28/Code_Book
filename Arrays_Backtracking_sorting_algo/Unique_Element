@@ -1,0 +1,26 @@
+#include<iostream>
+using namespace std;
+/*input 2m+1*/
+int unique(int arr[],int n)
+{
+    int ans=0;
+    for(int i=0;i<n;i++)
+    {
+     ans=ans^arr[i];
+    }
+    return ans;
+}
+
+int main()
+{
+    int n,arr[100];
+    cout<<"Enter length of an array";
+    cin>>n;
+    cout<<"Enter elements of a array";
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    int ans=unique(arr,n);
+    cout<<"Unique Element:"<<ans<<endl;
+}

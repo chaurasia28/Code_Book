@@ -1,0 +1,20 @@
+#include<iostream>
+using namespace std;
+void say_digit(string arr[],int n)
+{
+    if(n==0)
+    {
+        return;
+    }
+    int rem=n%10;
+    say_digit(arr,n/10);
+    cout<<arr[rem];
+}
+int main()
+{
+    int n;
+    string arr[10]={"zero","one","two","three","four","five","six","seven","eight","nine"};
+    cout<<"Enter n";
+    cin>>n;
+    say_digit(arr,n);
+}

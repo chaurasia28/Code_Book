@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+void swap(int *arr,int a,int b)
+{
+    int temp;
+    temp=arr[a];
+    arr[a]=arr[b];
+    arr[b]=temp;
+}
+void sort(int *arr,int n)
+{
+    //Selection Sort
+    //First loop :Rounds should be n-1 as last 1 element will already sorted
+    int j;
+    for(int i=0;i<n-1;i++)
+    {
+        int minindex=i;
+        //Second loop:Finding minimum element place it in correct place that is LHS
+        for(j=i+1;j<n;j++)
+        {
+            if(arr[j]<arr[minindex])
+            {
+               swap(arr,j,minindex);
+            }
+        }
+    }
+}
+int main()
+{
+    int n,arr[100];
+    cout<<"Enter length of an array";
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    sort(arr,n);
+    cout<<"Sort:";
+    for(int i=0;i<n;i++)
+    {
+        cout<<arr[i]<<" ";
+    }
+}

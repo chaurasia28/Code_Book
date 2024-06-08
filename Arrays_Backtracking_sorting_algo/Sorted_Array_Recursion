@@ -1,0 +1,33 @@
+//Is array sorted or not
+#include<iostream>
+using namespace std;
+bool chksorted(int *arr,int n)
+{
+    if(n==0||n==1)//If single element or no element is already sorted
+    {
+        return true;
+    }
+    if(arr[0]>arr[1])
+    {
+        return false;
+    }
+    return chksorted(arr+1,n-1);
+}
+int main()
+{
+    int arr[100];
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    if(chksorted(arr,n))
+    {
+        cout<<"True"<<endl;
+    }
+    else
+    {
+        cout<<"False"<<endl;
+    }
+}

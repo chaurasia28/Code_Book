@@ -1,0 +1,39 @@
+#include<iostream>
+using namespace std;
+void swap(char* word,int s,int e)
+{
+    int temp;
+    temp=word[s];
+    word[s]=word[e];
+    word[e]=temp;
+}
+void reverse(char *word,int len)
+{
+    int s=0;
+    int e=len-1;
+    while(s<=e)
+    {
+        swap(word,s,e);
+        s++;
+        e--;
+    }
+}
+int getlen(char *word)
+{
+    int len=0;
+    for(int i=0;word[i]!='\0';i++)
+    {
+        len++;
+    }
+    return len;
+}
+int main()
+{
+    char word[100];
+    cin>>word;
+    int len=getlen(word);
+    // cout<<"Length of string: "<<len<<endl;
+    cout<<"Reverse the string:";
+    reverse(word,len);
+    cout<<word;
+}

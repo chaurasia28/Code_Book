@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+void sum(int i,int add)
+{
+    if(i<1)
+    {
+      cout<<"Sum of N natural number:"<<add<<endl;
+      return;
+    }
+    sum(i-1,add+i);
+}
+int main()
+{
+    int n;
+    cin>>n;
+    sum(n,0);
+}

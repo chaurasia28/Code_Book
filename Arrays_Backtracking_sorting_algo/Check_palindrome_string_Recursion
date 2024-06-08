@@ -1,0 +1,30 @@
+#include<iostream>
+using namespace std;
+bool chk_palindrome(string &str,int s,int e)
+{
+    if(s>e)
+    {
+        return true;//Traverse whole string and reverse is also true
+    }
+    if(str[s]!=str[e])
+    {
+        return false;
+    }
+    return chk_palindrome(str,s+1,e-1);
+}
+int main()
+{
+    string str;
+    int n;
+    cout<<"Enter string";
+    cin>>str;
+    n=str.length();
+    if(chk_palindrome(str,0,n-1))
+    {
+        cout<<"Yes, it is Palindrome"<<endl;
+    }
+    else
+    {
+        cout<<"No,it is not a Palindrome"<<endl;
+    }
+}

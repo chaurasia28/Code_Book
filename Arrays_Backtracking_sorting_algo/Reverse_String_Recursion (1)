@@ -1,0 +1,29 @@
+#include<iostream>
+#include<string.h>
+using namespace std;
+void swap(string &str,int a,int b)
+{
+    char temp;
+    temp=str[a];
+    str[a]=str[b];
+    str[b]=temp;
+}
+void reverse(string &str,int s,int e)
+{
+    if(s>e)
+    {
+        return;
+    }
+    swap(str,s,e);
+    reverse(str,s+1,e-1);
+}
+using namespace std;
+int main()
+{
+    string s;
+    cout<<"Enter string";
+    getline(cin,s);
+    int n=s.length();
+    reverse(s,0,n-1);
+    cout<<"After reversing string:"<<s<<endl;
+}

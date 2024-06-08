@@ -1,0 +1,33 @@
+#include<iostream>
+#include<bits/stdc++.h>
+#include<algorithm>
+#include<vector>
+using namespace std;
+void permute(char *arr,int index,int n,vector<string>&ans)
+{
+    if(index>=n)
+    {
+        ans.push_back(arr);
+        return;
+    }
+    for(int j=index;j<n;j++)
+    {
+        swap(arr[j],arr[index]);
+        permute(arr,index+1,n,ans);
+        swap(arr[j],arr[index]);
+    }
+}
+int main()
+{
+    vector<string>ans;
+    int n,index;
+    cin>>n;
+    index=0;
+    char arr[100];
+    cin>>arr;
+    permute(arr,index,n,ans);
+    for(auto s:ans)
+    {
+        cout<<s<<endl;
+    }
+}

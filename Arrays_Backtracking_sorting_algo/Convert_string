@@ -1,0 +1,32 @@
+#include<iostream>
+using namespace std;
+string convertstring(string &s)
+{
+    int i=0;
+    int n=s.size();
+    while(i<n)
+    {
+        while(s[i]==' '&& i<n)
+        {
+            i++;
+        }
+        if(s[i]!=' ' && i<n)
+        {
+            if(s[i]>='a' && s[i]<='z'){
+            s[i]=s[i]-'a'+'A';
+            }
+        }
+        while(s[i]!=' '&& i<n)
+        {
+            i++;
+        }
+    }
+    return s;
+}
+int main()
+{
+    string s;
+    getline(cin,s);
+    convertstring(s);
+    cout<<"Convert String:"<<s<<endl;
+}

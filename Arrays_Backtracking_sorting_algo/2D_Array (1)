@@ -1,0 +1,100 @@
+#include<iostream>
+using namespace std;
+void print(int arr[][100],int m,int n)
+{
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+void rowsum(int arr[][100],int m,int n)
+{
+    cout<<"Row wise sum:"<<endl;
+    for(int i=0;i<m;i++)
+    {
+        int sum=0;
+        for(int j=0;j<n;j++)
+        {
+            sum=sum+arr[i][j];
+        }
+        cout<<"Sum of "<<i<<" "<<sum<<endl;
+    }
+}
+void colsum(int arr[][100],int m,int n)
+{
+    cout<<"Column wise sum:"<<endl;
+    for(int j=0;j<n;j++)
+    {
+        int sum=0;
+        for(int i=0;i<n;i++)
+        {
+            sum=sum+arr[i][j];
+        }
+        cout<<"Sum of "<<j<<" "<<sum<<endl;
+    }
+}
+int  matrixsearch(int arr[][100],int m,int n,int target)
+{
+ for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(arr[i][j]==target)
+            {
+                return 1;
+            }
+        }
+    }   
+    return 0;
+}
+int Largestrowsum(int arr[][100],int m,int n)
+{
+    int maxsum=-1;
+    int rowindex=0;
+    for(int i=0;i<m;i++)
+    {
+        int sum=0;
+        for(int j=0;j<n;j++)
+        {
+           sum=sum+arr[i][j];
+        }
+        if(maxsum<sum)
+        {
+            rowindex=i;
+            maxsum=sum;
+        }
+    } 
+    return rowindex;
+}
+int main()
+{
+    int arr[100][100];
+    int m,n,target;
+    cout<<"Enter no of row and column";
+    cin>>m>>n;
+    for(int i=0;i<m;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cin>>arr[i][j];
+        }
+    }
+    cout<<"Enter target";
+    cin>>target;
+    print(arr,m,n);
+    if(matrixsearch(arr,m,n,target))
+    {
+        cout<<"Element Found"<<endl;
+    }
+    else
+    {
+        cout<<"Element not Found"<<endl;
+    }
+    rowsum(arr,m,n);
+    colsum(arr,m,n);
+    cout<<"Largest Row sum(Index):"<<Largestrowsum(arr,m,n)<<endl;
+}

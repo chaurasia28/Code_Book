@@ -1,0 +1,35 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+vector<int>ans;
+void search(int *arr,int n,int target,int i)
+{
+   if(i>=n)
+   {
+       return; 
+   }
+    if(arr[i]==target)
+    {
+        ans.push_back(i);
+    }
+    search(arr,n,target,i+1);
+}
+int main()
+{
+    int arr[100];
+    int n,target;
+    cout<<"Enter size of array";
+    cin>>n;
+    cout<<"Enter elements of an array";
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    cout<<"Enter target element";
+    cin>>target;
+    search(arr,n,target,0);
+    for(auto i:ans)
+    {
+        cout<<i<<" ";
+    }
+}

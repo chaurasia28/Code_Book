@@ -1,0 +1,24 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+string duplicate(string s)
+{
+    string output="";
+    sort(s.begin(),s.end());
+    for(int i=0;i<s.size();i++)
+    {
+        if(s[i]==s[i+1])
+        {
+            i++;
+        }
+        output=output+s[i];
+    }
+    return output;
+}
+int main()
+{
+    string s;
+    getline(cin,s);
+    string output=duplicate(s);
+    cout<<output<<endl;
+}

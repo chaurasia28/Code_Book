@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+char max_occ_char(string s)
+{
+    //Storing the count of character
+    char arr[26]={0};
+    int index=0;
+    for(int i=0;i<s.length();i++)
+    {
+        if(s[i]>='a' && s[i]<='z')
+        {
+            index=s[i]-'a';
+        }
+        else
+        {
+            index=s[i]-'A';
+        }
+        arr[index]++;
+    }
+    //Calculating maximum occuring character
+    int maxi=-1;
+    int ans;
+    for(int i=0;i<26;i++)
+    {
+        if(maxi<arr[i])
+        {
+            ans=i;
+            maxi=arr[i];
+        }
+    }
+    return ans+'a';
+}
+int main()
+{
+    string s;
+    cin>>s;
+    cout<<"Maximum Occuring Character:"<<max_occ_char(s);
+}

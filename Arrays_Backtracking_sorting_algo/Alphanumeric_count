@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+void alphanumeric_count(char sentence[],int len)
+{
+    int i=1;
+    int n=len-1;
+    int uppercase_char=0;
+    int lowercase_char=0;
+    int digit=0;
+    int special_symbol=0;
+    for(int i=0;i<n;i++)
+    {
+        if(sentence[i]>='A' && sentence[i]<='Z')
+        {
+            uppercase_char++;
+        }
+        else if(sentence[i]>='a' && sentence[i]<='z')
+        {
+            lowercase_char++;
+        }
+        else if(sentence[i]>='0' && sentence[i]<='9')
+        {
+            digit++;
+        }
+        else
+        {
+            special_symbol++;
+        }
+    }
+    cout<<"count of the following:"<<endl;
+    cout<<"Uppercase Character :"<<uppercase_char<<endl;
+    cout<<"Lowercase Character :"<<lowercase_char<<endl;
+    cout<<"Digits :"<<digit<<endl;
+    cout<<"Special Symbol:"<<special_symbol<<endl;
+}
+int main()
+{
+    char sentence[100];
+    char temp;
+    int len=0;
+    while(temp!='\n')
+    {
+        temp=cin.get();
+        sentence[len++]=temp;
+    }
+    //cout<<sentence<<" "<<len;Remember it will include enter as a character therefore length is one extra 
+    alphanumeric_count(sentence,len);
+}

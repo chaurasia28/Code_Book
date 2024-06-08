@@ -1,0 +1,14 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int main()
+{
+    char a[100]="apple";
+    char b[100]="orange";
+   // strcpy(b,a);
+    cout<<b<<endl;
+    cout<<strcmp(a,b)<<endl;
+    //0 means both are equal (apple,apple);-14 means difference b/w ascii value
+    cout<<strcat(a,b);//appleorange
+    return 0;
+}
