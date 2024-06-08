@@ -1,0 +1,79 @@
+#include<iostream>
+#include<unordered_map>
+using namespace std;
+class Node{
+    public:
+           int data;
+           Node* next;
+           Node(int data)
+           {
+               this->data=data;
+               this->next=NULL;
+           }
+};
+void print(Node* root)
+{
+    if(root==NULL)
+    {
+        cout<<" ";
+    }
+    Node* temp=root;
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+    }
+}
+Node* removeduplicate(Node* root)
+{
+    if(root==NULL||root->next==NULL)
+    {
+        return root;
+    }
+    unordered_map<int,bool>visited;
+    Node* curr=root;
+    Node* prev=NULL;
+    while(curr!=NULL)
+    {
+        if(visited[curr->data]==true)
+        {
+            prev->next=curr->next;
+            curr=prev->next;
+        }
+        else
+        {
+            visited[curr->data]=true;
+            prev=curr;
+            curr=curr->next;
+        }
+    }
+    return root;
+}
+Node* append(Node* root,int data)
+{
+    if(root==NULL)
+    {
+        return new Node(data);
+    }
+    Node* temp=root;
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+    }
+    temp->next=new Node(data);
+    return root;
+}
+int main()
+{
+    int n1;
+    cin>>n1;
+    Node* root=NULL;
+    for(int i=0;i<n1;i++)
+    {
+        int data;
+        cin>>data;
+        root=append(root,data);
+    }
+    Node* ans=removeduplicate(root);
+    print(ans);
+}
