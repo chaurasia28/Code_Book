@@ -1,0 +1,61 @@
+#include<iostream>
+#include<algorithm>
+#include<queue>
+using namespace std;
+class Node
+{
+    public:
+           int data;
+           Node* left;
+           Node* right;
+           Node(int data)
+           {
+               this->data=data;
+               this->left=NULL;
+               this->right=NULL;
+           }
+};
+void buildLevelTree(Node* &root)
+{
+    queue<Node*>q;
+    int data;
+    cin>>data;
+    root=new Node(data);
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* temp=q.front();
+        q.pop();
+        int leftnode;
+        cin>>leftnode;
+        if(leftnode!=-1)
+        {
+            temp->left=new Node(leftnode);
+            q.push(temp->left);
+        }
+        int rightnode;
+        cin>>rightnode;
+        if(rightnode!=-1)
+        {
+            temp->right=new Node(rightnode);
+            q.push(temp->right);
+        }
+    }
+}
+int heightoftree(Node* &root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+    int left=heightoftree(root->left);
+    int right=heightoftree(root->right);
+    int ans=max(left,right)+1;
+    return ans;
+}
+int main()
+{
+    Node* root=NULL;
+    buildLevelTree(root);
+    cout<<"Height of Tree:(No of nodes on longest path from root node to leaf node)"<<heightoftree(root);
+}

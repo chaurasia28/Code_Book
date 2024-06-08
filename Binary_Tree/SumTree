@@ -1,0 +1,89 @@
+#include<iostream>
+#include<queue>
+#include<algorithm>
+using namespace std;
+class Node{
+    public:
+           int data;
+           Node* left;
+           Node* right;
+           Node(int data)
+           {
+               this->data=data;
+               this->left=NULL;
+               this->right=NULL;
+           }
+};
+void buildleveltree(Node* &root)
+{
+    int data;
+    cin>>data;
+    root=new Node(data);
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* temp=q.front();
+        q.pop();
+        int leftdata;
+        cin>>leftdata;
+        if(leftdata!=-1)
+        {
+            temp->left=new Node(leftdata);
+            q.push(temp->left);
+        }
+        int rightdata;
+        cin>>rightdata;
+        if(rightdata!=-1)
+        {
+            temp->right=new Node(rightdata);
+            q.push(temp->right);
+        }
+    }
+    
+}
+pair<bool,int>isSumTreeFast(Node* &root)
+{
+    //Base Case if tree is empty
+    if(root==NULL)
+    {
+        pair<bool,int>p=make_pair(true,0);
+        return p;
+    }
+    //If there is any leaf node
+    if(root->left==NULL && root->right==NULL)
+    {
+        pair<bool,int>p=make_pair(true,root->data);
+        return p;
+    }
+    //Recursively call
+    pair<bool,int> leftans=isSumTreeFast(root->left);
+    pair<bool,int> rightans=isSumTreeFast(root->right);
+    //Checking cond for sumtree
+    bool isleftsum=leftans.first;
+    bool isrightsum=rightans.first;
+    bool cond=root->data==leftans.second+rightans.second;
+    pair<bool,int>ans;
+    if(isleftsum && isrightsum && cond)
+    {
+        ans.first=true;
+        ans.second=root->data+leftans.second+rightans.second;
+        return ans;
+    }
+    else
+    {
+        ans.first=false;
+    }
+    return ans;
+}
+bool isSumTree(Node* &root)
+{
+    pair<bool,int>ans=isSumTreeFast(root);
+    return ans.first;
+}
+int main()
+{
+    Node* root=NULL;
+    buildleveltree(root);
+    cout<<isSumTree(root);
+}

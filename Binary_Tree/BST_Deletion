@@ -1,0 +1,130 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+class Node
+{
+  public:
+         int data;
+         Node* left;
+         Node* right;
+         Node(int data)
+         {
+             this->data=data;
+             this->left=NULL;
+             this->right=NULL;
+         }
+};
+Node* BSTinsert(Node* root,int x)
+{
+    if(root==NULL)
+    {
+        return new Node(x);
+    }
+    if(root->data>=x)
+    {
+        root->left=BSTinsert(root->left,x);
+    }
+    else
+    {
+        root->right=BSTinsert(root->right,x);
+    }
+    return root;
+}
+void inorder(Node* &root)
+{
+    //inorder traversal of BST is always sorted
+    if(root==NULL)
+    {
+        return;
+    }
+    inorder(root->left);
+    cout<<root->data<<" ";
+    inorder(root->right);
+}
+Node* minval(Node* root)
+{
+    Node* temp=root;
+    while(temp!=NULL && temp->left!=NULL)
+    {
+        temp=temp->left;
+    }
+    return temp;
+}
+Node* maxval(Node* root)
+{
+    Node* temp=root;
+    while(temp!=NULL &&temp->right!=NULL)
+    {
+        temp=temp->right;
+    }
+    return temp;
+}
+Node* deletenode(Node* root,int data)
+{
+   if(root==NULL)
+   {
+       return NULL;
+   }
+   if(root->data==data)
+   {
+       //deletion
+       //zero child
+       if(root->left==NULL && root->right==NULL)
+       {
+           delete root;
+           return NULL;
+       }
+       //one left child
+       if(root->left!=NULL &&root->right==NULL)
+       {
+           Node* temp=root->left;
+           delete  root;
+           return temp;
+       }
+       if(root->right!=NULL && root->left==NULL)
+       {
+           Node* temp=root->right;
+           delete root;
+           return temp;
+       }
+       //two child
+       if(root->left!=NULL && root->right!=NULL)
+       {
+           Node* min=minval(root->right);
+           root->data=min->data;
+           root->right=deletenode(root->right,min->data);
+       }
+       return root;
+   }
+   else if(root->data>=data)
+   {
+       root->left=deletenode(root->left,data);
+   }
+   else
+   {
+       root->right=deletenode(root->right,data);
+   }
+   return root;
+}
+int main()
+{
+    Node* root=NULL;
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+    {
+        int data;
+        cin>>data;
+        root=BSTinsert(root,data);
+    }
+    // cout<<"Inorder Traversal"<<endl;
+     inorder(root);
+    // cout<<endl;
+    //cout<<"Minimum value in a tree"<<minval(root)->data<<endl;
+   // cout<<"Maximum value in a tree"<<maxval(root)->data<<endl;
+   int key;
+   cin>>key;
+   Node* nodetodelete=deletenode(root,key);
+   inorder(nodetodelete);
+   
+}

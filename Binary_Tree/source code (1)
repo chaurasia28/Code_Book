@@ -1,0 +1,84 @@
+#include<iostream>
+#include<queue>
+using namespace std;
+class Node
+{
+    public:int data;
+           Node* left;
+           Node* right;
+           Node(int data)
+           {
+               this->data=data;
+               this->left=NULL;
+               this->right=NULL;
+           }
+};
+Node* buildtree(Node* root)
+{
+    int data;
+    cin>>data;
+    root=new Node(data);
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* temp=q.front();
+        q.pop();
+        int leftnode,rightnode;
+        cin>>leftnode;
+        if(leftnode!=-1)
+        {
+            temp->left=new Node(leftnode);
+            q.push(temp->left);
+        }
+        cin>>rightnode;
+        if(rightnode!=-1)
+        {
+            temp->right=new Node(rightnode);
+            q.push(temp->right);
+        }
+    }    
+    return root;
+}
+void inorder(Node* &root,vector<int>&v)
+{
+    if(root==NULL)
+    {
+        v.push_back(100000);
+        return;
+    }
+    inorder(root->left,v);
+    v.push_back(root->data);
+    inorder(root->right,v);
+}
+void preorder(Node* &root,vector<int>&v)
+{
+    if(root==NULL)
+    {
+        v.push_back(100000);
+        return;
+    }
+    v.push_back(root->data);
+    preorder(root->left,v);
+    preorder(root->right,v);
+}
+int main()
+{
+    Node* T1=NULL;
+    Node* T2=NULL;
+    T1= buildtree(T1);
+    T2=buildtree(T2);
+    vector<int>int1,int2,pret1,pret2;
+    inorder(T1,int1);
+    inorder(T2,int2);
+    preorder(T1,pret1);
+    preorder(T2,pret2);
+    if(int1==int2 && pret1==pret2)
+    {
+        cout<<"Same";
+    }
+    else
+    {
+        cout<<"Not Same";
+    }
+}

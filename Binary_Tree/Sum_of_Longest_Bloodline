@@ -1,0 +1,85 @@
+#include<iostream>
+#include<algorithm>
+#include<queue>
+#include<limits.h>
+using namespace std;
+class Node
+{
+   public:
+           int data;
+           Node* left;
+           Node* right;
+           Node(int data)
+           {
+               this->data=data;
+               this->left=NULL;
+               this->right=NULL;
+           }
+           
+};
+void solve(Node* &root,int sum,int &maxsum,int len,int &maxlen)
+{
+    if(root==NULL)
+    {
+        if(len>maxlen)
+        {
+            maxlen=len;
+            maxsum=sum;
+        }
+        else if(len==maxlen)
+        {
+            maxsum=max(maxsum,sum);
+        }
+        return;
+    }
+    solve(root->left,sum+root->data,maxsum,len+1,maxlen);
+    solve(root->right,sum+root->data,maxsum,len+1,maxlen);
+}
+int sumoflongestbloodline(Node* &root)
+{
+    int sum=0;
+    int maxsum=INT_MIN;
+    int len=0;
+    int maxlen=0;
+    solve(root,sum,maxsum,len,maxlen);
+    return maxsum;
+}
+void buildlevelordertree(Node* &root)
+{
+    int data;
+    cin>>data;
+    if(data==-1)
+    {
+        root=NULL;
+        return;
+    }
+    root=new Node(data);
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* temp=q.front();
+        q.pop();
+        int leftnode;
+        cin>>leftnode;
+        if(leftnode!=-1)
+        {
+            temp->left=new Node(leftnode);
+            q.push(temp->left);
+        }
+        int rightnode;
+        cin>>rightnode;
+        if(rightnode!=-1)
+        {
+            temp->right=new Node(rightnode);
+            q.push(temp->right);
+        }
+    }
+}
+int main()
+{
+    //4 2 5 7 1 2 3 N N 6 N
+    Node* root=NULL; 
+    buildlevelordertree(root);
+    cout<< "Sum of longest bloodline: "<<sumoflongestbloodline(root);
+}

@@ -1,0 +1,79 @@
+#include<iostream>
+#include<algorithm>
+#include<queue>
+using namespace std;
+class Node
+{
+    public:
+           int data;
+           Node* left;
+           Node* right;
+           Node(int data)
+           {
+               this->data=data;
+               this->left=NULL;
+               this->right=NULL;
+           }
+};
+void buildleveltree(Node* &root)
+{
+   queue<Node*>q;
+   int data;
+   cin>>data;
+   root=new Node(data);
+   q.push(root);
+   while(!q.empty())
+   {
+       Node* temp=q.front();
+       q.pop();
+       int leftdata;
+       cin>>leftdata;
+       if(leftdata!=-1)
+       {
+           temp->left=new Node(leftdata);
+           q.push(temp->left);
+       }
+       int rightdata;
+       cin>>rightdata;
+       if(rightdata!=-1)
+       {
+           temp->right=new Node(rightdata);
+           q.push(temp->right);
+       }
+   }
+}
+bool identicaltree(Node* &root1,Node* &root2)
+{
+    if(root1==NULL && root2==NULL)
+    {
+        return true;
+    }
+    if(root1==NULL && root2!=NULL)
+    {
+        return false;
+    }
+    if(root1!=NULL && root2==NULL)
+    {
+        return false;
+    }
+    bool leftans=identicaltree(root1->left,root2->left);
+    bool rightans=identicaltree(root1->right,root2->right);
+    bool dataans=root1->data==root2->data;
+    if(leftans && rightans && dataans)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+int main()
+{
+    Node* root1=NULL;
+    Node* root2=NULL;
+    buildleveltree(root1);
+    buildleveltree(root2);
+   cout<< identicaltree(root1,root2);
+}
