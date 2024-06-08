@@ -1,0 +1,50 @@
+#include<iostream>
+#include<stack>
+#include<queue>
+using namespace std;
+queue<int>reversequeue(queue<int>q,int n,int k)
+{
+    stack<int>s;
+    for(int i=0;i<k;i++)
+    {
+        s.push(q.front());
+        q.pop();
+    }
+    while(!s.empty())
+    {
+        q.push(s.top());
+        s.pop();
+    }
+    int t=n-k;
+    while(t--)
+    {
+        q.push(q.front());
+        q.pop();
+    }
+    return q;
+}
+void print(queue<int>ans)
+{
+    queue<int>temp=ans;
+    while(!temp.empty())
+    {
+        cout<<temp.front()<<" ";
+        temp.pop();
+    }
+}
+int main()
+{
+   int n;
+   cin>>n;
+   queue<int>q;
+   for(int i=0;i<n;i++)
+   {
+       int data;
+       cin>>data;
+       q.push(data);
+   }
+   int k;
+   cin>>k;
+   queue<int>ans=reversequeue(q,n,k);
+   print(ans);
+}

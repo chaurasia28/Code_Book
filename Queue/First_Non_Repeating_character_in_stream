@@ -1,0 +1,41 @@
+#include<iostream>
+#include<string>
+#include<unordered_map>
+#include<queue>
+using namespace std;
+string firstnonrep(string A)
+{
+    unordered_map<char,int>count;
+    queue<char>q;
+    string ans="";
+    for(int i=0;i<A.length();i++)
+    {
+        char ch=A[i];
+        count[ch]++;
+        q.push(ch);
+        while(!q.empty())
+        {
+            if(count[q.front()]>1)
+            {
+                q.pop();
+            }
+            else
+            {
+                ans+=q.front();
+                break;
+            }
+        }
+        if(q.empty())
+        {
+            ans+="#";
+        }
+    }
+    return ans;
+}
+int main()
+{
+    string A;
+    cin>>A;
+    string ans=firstnonrep(A);
+    cout<<ans<<endl;
+}
